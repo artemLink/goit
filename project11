@@ -22,23 +22,30 @@ class Name(Field):
 
 
 class Phone(Field):
-    def __init__(self, value):
-        self.set_value(value)
+    @property
+    def value(self):
+        return self._value
 
-    def set_value(self, value):
-        if not (value.isdigit() and len(value) == 10):
+    @value.setter
+    def value(self, new_value):
+        if not (new_value.isdigit() and len(new_value) == 10):
             raise ValueError("Неверный формат номера телефона")
-        self._value = value
+        self._value = new_value
 
 
 class Birthday(Field):
-    def __init__(self, value=None):
-        if value:
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, new_value):
+        if new_value:
             try:
-                value = datetime.strptime(value, '%Y-%m-%d').date()
+                new_value = datetime.strptime(new_value, '%Y-%m-%d').date()
             except ValueError:
                 raise ValueError("Неверный формат дня рождения")
-        super().__init__(value)
+        self._value = new_value
 
 
 class Record:
