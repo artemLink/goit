@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "hw2-web"
+version = "0.1.0"
+description = ""
+authors = ["BogSyn <ravlykplus@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+art = "^6.1"
+prompt-toolkit = "^3.0.43"
+rich = "^13.7.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
