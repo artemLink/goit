@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ author.fullname }}{% endblock %}
+
+{% block content %}
+<h1>{{ author.fullname }}</h1>
+<p><strong>Дата народження:</strong> {{ author.born_date }} локація:  {{ author.born_location }}</p>
+<p>{{ author.description }}</p>
+{% endblock %}

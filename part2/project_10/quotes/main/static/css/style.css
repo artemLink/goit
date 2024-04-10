@@ -1,0 +1,45 @@
+/* styles.css */
+
+/* Стили для header */
+header {
+    background-color: #333; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    padding: 10px 0; /* Внутренние отступы сверху и снизу */
+}
+
+/* Стили для навигационного меню */
+nav ul {
+    list-style-type: none; /* Убираем стандартные маркеры списка */
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline; /* Отображаем пункты списка в ряд */
+}
+
+nav ul li a {
+    color: #fff; /* Цвет текста ссылок */
+    text-decoration: none; /* Убираем подчеркивание */
+    padding: 10px; /* Внутренние отступы */
+}
+
+/* Эффект при наведении на ссылки */
+nav ul li a:hover {
+    background-color: #555; /* Изменение цвета фона при наведении */
+}
+
+/* Стили для кнопок "Вийти" и "Увійти" */
+nav a.logout,
+nav a.login {
+    color: #fff; /* Цвет текста кнопок */
+    text-decoration: none; /* Убираем подчеркивание */
+    padding: 10px; /* Внутренние отступы */
+    margin-left: 10px; /* Отступ слева */
+}
+
+/* Эффект при наведении на кнопки */
+nav a.logout:hover,
+nav a.login:hover {
+    background-color: #555; /* Изменение цвета фона при наведении */
+}
