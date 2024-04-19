@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Birthdays</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="container mt-5" x-data="{ contacts: [] }">
+        <h2>Search Birthdays</h2>
+        <button class="btn btn-primary" @click="getBirthdays(contacts)">Show Birthdays</button>
+        <ul id="birthdays" class="list-group mt-3">
+            <template x-for="contact in contacts">
+                <li class="list-group-item" x-text="contact.first_name + ' ' + contact.last_name + ' - ' + contact.birthday"></li>
+            </template>
+        </ul>
+    </div>
+</body>
+</html>

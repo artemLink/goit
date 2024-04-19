@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="script.js"></script>
+</head>
+
+<body>
+<div class="container py-5" x-data="{
+    contacts: [],
+    newContact: { first_name: '',
+                  last_name: '',
+                  email: '',
+                  phone_number: '',
+                  birthday: '',
+                  description: ''},
+    error: null,
+    async getContacts() {
+      try {
+        this.contacts = await window.getContacts();
+      } catch (err) {
+        this.error = err.message;
+      }
+    },
+    async editContact(contact) {
+      try {
+        await window.editContact(contact);
+        contact.editing = false;
+        await this.getContacts();
+      } catch (err) {
+        this.error = err.message;
+      }
+    },
+    async deleteContact(id) {
+      try {
+        await window.deleteContact(id);
+        this.contacts = this.contacts.filter(contacts => contact.id !== id);
+      } catch (err) {
+        this.error = err.message;
+      }
+    },
+    init() { this.getContacts(); }
+  }" x-init="init()">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="mb-4 text-center">Contact Book App</h1>
+
+            <!-- Відображення сповіщення про помилку -->
+            <div x-show="error" class="alert alert-danger" x-text="error"></div>
+
+            <div class="row mt-4 mb-4 justify-content-center">
+            <a href="add_contact.html" class="btn btn-primary mr-3">Create contact</a>
+            <a href="birthday.html" class="btn btn-primary mr-3">Birthday</a>
+            <a href="search.html" class="btn btn-primary">Search contact</a>
+            </div>
+
+            <ul class="list-group">
+                <template x-for="contact in contacts" :key="contact.id">
+                    <li class="list-group-item">
+                        <div x-show="!contact.editing">
+                            <div><strong>First_name:</strong> <span @dblclick="task.editing = true"
+                                                                    x-text="contact.first_name"></span></div>
+                            <div><strong>Last_name:</strong> <span @dblclick="task.editing = true"
+                                                                   x-text="contact.last_name"></span></div>
+                            <div><strong>Email:</strong> <span @dblclick="task.editing = true"
+                                                               x-text="contact.email"></span></div>
+                            <div><strong>Phone_number:</strong> <span @dblclick="task.editing = true"
+                                                                      x-text="contact.phone_number"></span></div>
+                            <div><strong>Birthday:</strong> <span @dblclick="task.editing = true"
+                                                                  x-text="contact.birthday"></span></div>
+                            <div><strong>Description:</strong> <span @dblclick="task.editing = true"
+                                                                     x-text="contact.description"></span></div>
+                            <button @click="deleteContact(contact.id); $nextTick(() => getContacts())" class="btn btn-sm btn-danger">Delete</button>
+                            <button @click="contact.editing = true" class="btn btn-sm btn-warning">Edit</button>
+                        </div>
+                        <div x-show="contact.editing">
+                            <input type="text" class="form-control" x-model="contact.first_name">
+                            <input type="text" class="form-control" x-model="contact.last_name">
+                            <input type="text" class="form-control" x-model="contact.email">
+                            <input type="text" class="form-control" x-model="contact.phone_number">
+                            <input type="text" class="form-control" x-model="contact.birthday">
+                            <input type="text" class="form-control" x-model="contact.description">
+
+                            <button @click="editContact(contact)" class="btn btn-sm btn-success">Save</button>
+                            <button @click="contact.editing = false" class="btn btn-sm btn-secondary">Cancel</button>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

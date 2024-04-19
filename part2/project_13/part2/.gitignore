@@ -1,0 +1,14 @@
+# .gitignore
+
+
+# PyCharm
+
+.idea/
+
+hw_project/hw_project/__pycache__/
+hw_project/quotes/__pycache__/
+hw_project/quotes/migrations/__pycache__/
+hw_project/quotes/templatetags/__pycache__/
+hw_project/users/__pycache__/
+hw_project/users/migrations/__pycache__/
+hw_project/utils/__pycache__/

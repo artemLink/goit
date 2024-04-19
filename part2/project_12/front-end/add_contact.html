@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="script.js"></script>
+</head>
+<body>
+<div class="container py-5" x-data="{
+    contacts: [],
+    newContact: { first_name: '',
+                  last_name: '',
+                  email: '',
+                  phone_number: '',
+                  birthday: '',
+                  description: ''},
+    error: null,
+    async getContacts() {
+      try {
+        this.contacts = await window.getContacts();
+      } catch (err) {
+        this.error = err.message;
+      }
+    },
+    async createContact() {
+      try {
+        await window.createContact(this.newContact);
+        this.newContact = { first_name: '',
+                            last_name: '',
+                            email: '',
+                            phone_number: '',
+                            birthday: '',
+                            description: ''};
+        await this.getContacts();
+      } catch (err) {
+        this.error = err.message;
+      }
+    },
+
+    init() { this.getContacts(); }
+  }" x-init="init()">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="mb-4 text-center">Contact Book App</h1>
+
+            <!-- Отображение сообщения об ошибке -->
+            <div x-show="error" class="alert alert-danger" x-text="error"></div>
+
+            <div class="row mb-3">
+                <div class="input-group mb-3">
+                    <input type="text" x-model="newContact.first_name" class="form-control" placeholder="first_name">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" x-model="newContact.last_name" class="form-control" placeholder="last_name">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" x-model="newContact.email" class="form-control" placeholder="email">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" x-model="newContact.phone_number" class="form-control"
+                           placeholder="phone_number">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" x-model="newContact.birthday" class="form-control" placeholder="birthday">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" x-model="newContact.description" class="form-control" placeholder="description">
+                </div>
+
+
+                <button @click="createContact" class="btn btn-primary">Add</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
